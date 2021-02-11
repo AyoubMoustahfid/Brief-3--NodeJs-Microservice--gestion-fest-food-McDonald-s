@@ -1,0 +1,208 @@
+/* Transitions taken from tympanus */
+body {
+
+    background-color: #F8F8F8;
+    
+    }
+    
+    body,
+    html,
+    ul {
+    margin: 0;
+    padding: 0;
+    }
+    
+    li {
+    list-style-type: none;
+    }
+    a{
+    text-decoration: none;
+    color: black;
+    }
+    a:hover{
+    text-decoration: none;
+    color: black;
+    }
+    
+    .navbar-brand .logo {
+    width: 50px;
+    border-radius: 5px;
+    
+    }
+    
+ 
+    .get-started p{
+    width: 50%;
+    margin-bottom: 6%;
+    }
+    
+    .section-continer {
+    padding: 2%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    }
+    
+    .circle {
+    background-color: #FFC000;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    
+    }
+    
+    .circle img {
+    width: 91%;
+    margin-top: 8%;
+    }
+    
+    .btn-order{
+    background-color: #ffc000;
+    border: 0px;
+    }
+    .btn-order:hover{
+    background-color: #ffc000;
+    border: 0px;
+    }
+    
+    .quiz {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    perspective: 1200px;
+    margin-top: 1px;
+    }
+    
+    /* Slide */
+    .quiz-slide {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh);
+    width: calc(100vw);
+    
+    /* Transition */
+ 
+    visibility: hidden;
+    overflow: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    }
+    
+    /* .slide-blue {
+    background: #0ac2d2;
+    } */
+    
+    /* .slide-pink {
+    background: deeppink;
+    } */
+    
+    .slide-yellow {
+    background:#fbea82;
+    }
+    
+    .quiz-slide.active {
+    visibility: visible;
+    z-index:1;
+    }
+    
+    .quiz-slide .question,
+    .quiz-slide .answers {
+    
+    width: 48%;
+    }
+    
+    .answers ul{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    }
+    .answers ul li{
+    width: 173px;
+    height: 40px;
+    }
+    
+    
+    
+    .quiz-slide .question {
+    margin: 4% 0% 5% 0%;
+    
+    text-align: center;
+    /* font-family: 'Impact',serif; */
+    font-size: 40px;
+    /* font-weight: bold; */
+    /* letter-spacing: 1px; */
+    }
+    
+    /* Style of radio buttons */
+    label {
+    position: relative;
+    cursor: pointer;
+    }
+    label [type="radio"] {
+    display: none;
+    }
+    /* [type="radio"] + span {
+    border:3px solid black;
+    background: transparent;
+    display: inline-block;
+    padding: 2%;
+    margin: 1% 1% 1% 2%;
+    text-align: center;
+    width: calc(100% - 7%);
+    } */
+    :checked + span {
+
+    border: none;
+
+    display: inline-block;
+    }
+    [type="radio"][disabled] + span {
+    background: #f00;
+    }
+    
+    .quiz-slide-move-to-left {
+    -webkit-animation: moveToLeft .6s ease both;
+    animation: moveToLeft .6s ease both;
+    }
+    
+    .pt-page-moveFromLeft {
+    -webkit-animation: moveFromLeft .6s ease both;
+    animation: moveFromLeft .6s ease both;
+    }
+    
+    .quiz-slide-move-from-right {
+    -webkit-animation: moveFromRight .6s ease both;
+    animation: moveFromRight .6s ease both;
+    }
+    
+    @-webkit-keyframes moveToLeft {
+    from { }
+    to { -webkit-transform: translateX(-100%); }
+    }
+    @keyframes moveToLeft {
+    from { }
+    to { -webkit-transform: translateX(-100%); transform: translateX(-100%); }
+    }
+    
+    @-webkit-keyframes moveFromRight {
+    from { -webkit-transform: translateX(100%); }
+    }
+    @keyframes moveFromRight {
+    from { -webkit-transform: translateX(100%); transform: translateX(100%); }
+    }
+    
+    
+    .mcd-logo img {
+    width: 300px;
+    height: 300px;
+    }
