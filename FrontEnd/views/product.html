@@ -72,25 +72,34 @@
                   <h1>Your Cart</h1>
                   
                   <div class="cart__centent">
+
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Enter Your Code Promo</label>
+                        <input type="text" class="form-control" id="codePromo"   placeholder="Enter your Code promo">
+                    </div>
+
+
         
-                    <h1>Code Promo</h1>
-                    <input type="text" class="form-control" id="codePromo"   placeholder="Enter your Code promo">
-        
-        
-                      <h1>Table</h1>
-        
-                      <select class="form-select " id="serviceTable" aria-label="Default select example">
-                        
-                          
-                        </select>
-        
+                      
+                      <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Enter Your Code Promo</label>
+                        <select class="form-select " id="serviceTable" aria-label="Default select example">
+                            <!-- Option All Tables -->
+                        </select>                   
+                     </div>
                   
                   </div>
             
                   <div class="cart__footer">
                     <h3>Total: DH <span class="cart__total">0</span></h3>
-                    <button class="clear__cart btn btn-danger">Clear Cart</button>
-                    <button class=" btn btn-success" id="checkout">Next</button>
+                    <div class="row">
+                        <div class="d-grid col-12 col-md-6">
+                            <button class="clear__cart btn btn-danger">Clear Cart</button>
+                        </div>
+                        <div class="d-grid col-12 col-md-6">
+                            <button class=" btn btn-success" id="checkout">Next</button>
+                        </div>
+                    </div>
                   </div>
                 </div>
               </section>

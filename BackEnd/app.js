@@ -15,6 +15,7 @@ const categoryRoutes = require('./routes/categoryRouter')
 const souCategoryRoutes = require('./routes/souCategoryRouter')
 const tableRoutes = require('./routes/tableRouters')
 const codePromoRoutes = require('./routes/codePromoRouter')
+const paymentRoutes = require('./routes/paymentRouter')
 
 
 
@@ -33,6 +34,7 @@ app.use('/api/souCategory', souCategoryRoutes)
 app.use('/api/product', productRoutes)
 app.use('/api/table', tableRoutes)
 app.use('/api/codePromo', codePromoRoutes)
+app.use('/api/payment', paymentRoutes)
 
 
 

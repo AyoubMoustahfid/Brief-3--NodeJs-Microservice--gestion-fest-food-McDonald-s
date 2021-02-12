@@ -136,7 +136,7 @@ productDOM.innerHTML += results;
     let itemTotal = 0;
 
     cart.map(item => {
-      tempTotal += item.prix * item.amount;
+      tempTotal += item.price * item.amount;
       itemTotal += item.amount;
     });
     cartTotal.innerText = parseFloat(tempTotal.toFixed(2));
@@ -328,7 +328,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
-const serviceTable =document.getElementById('serviceTable');
+const serviceTable = document.getElementById('serviceTable');
 
 axios.get('http://localhost:3000/api/table')
 .then(function (response) {
@@ -341,7 +341,7 @@ for (let i = 0; i < response.data.tables.length; i++) {
      html = `
      <option value="${response.data.tables[i].name}">${response.data.tables[i].name}</option>
      `
-     serviceTable.innerHTML += html
+     document.getElementById('serviceTable').innerHTML += html
     
   }
 
@@ -380,14 +380,15 @@ checkout.addEventListener('click', () => {
 
         if (codePromo === response.data.codePromos[i].code && response.data.codePromos[i].isValid == true) {
 
-          pourcentage = response.data[i].gagner;
-          codePromoId = response.data[i]._id;
+          pourcentage = response.data.codePromos[i].gagner;
+          codePromoId = response.data.codePromos[i]._id;
           let tmp = (intTotal * pourcentage) / 100;
           let totalAfterCode = intTotal - tmp;
 
-          localStorage.setItem('total', totalAfterCode);
+          localStorage.setItem('total', JSON.stringify({totalAfterCode, table}));
 
           total = document.querySelector('.cart__total').innerHTML = totalAfterCode
+          console.log(total);
 
 
           // set isvalid to false in db 
@@ -408,6 +409,7 @@ checkout.addEventListener('click', () => {
 
       }
 
+   
 
     }).catch(function (err) {
       console.log(err);
@@ -431,7 +433,9 @@ axios.put(`http://localhost:3000/api/table/${table}`)
 
   localStorage.setItem('total', total);
   
-
+  setTimeout(() => {
+    window.location.href = "order.html";
+  },1000)
   let xcart = Storage.getCart();
 
 })
