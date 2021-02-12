@@ -1,8 +1,12 @@
 var urlString = window.location.search;
 var urlParam = new URLSearchParams(urlString);
-const idSousCtg = urlParam.get('id');
+const sousCtgId = urlParam.get('id');
 
-const productDOM = document.querySelector(".product__center");
+console.log(sousCtgId)
+
+
+
+const productDOM = document.querySelector("#card");
 const cartDOM = document.querySelector(".cart");
 const cartContent = document.querySelector(".cart__centent");
 const openCart = document.querySelector(".cart__icon");
@@ -14,31 +18,41 @@ const itemTotals = document.querySelector(".item__total");
 
 
 
+async function getCategory() {
+  try {
+      const resCategory = await axios.get('http://localhost:3000/api/category/');
+      // console.log(resCategory.data.categories[0].name);
 
-let category_menu = document.querySelector('.category-menu');
+      var row = "";
+      for (let i = 0; i < resCategory.data.categories.length; i++) {
+          console.log(resCategory.data.categories[i].name);
+          row = `
+          <div class="card">
+          <div class="card-body">
+          <div class="row">
+           <div class="col-10">
+           <h5 class="card-title">${resCategory.data.categories[i].name}</h5>
+           </div>
+           <div class="col-2">
+           <a style="    text-decoration: none;" href="souCategory.html?id=${resCategory.data.categories[i]._id}" class="card-link fas fa-arrow-right"></a>
+
+           </div>
+          </div>
+          </div>
+        </div>
+          `
+          document.getElementById("category").innerHTML += row;
+
+      }
 
 
-// display category menu 
 
+  } catch (error) {
+      console.error(error);
+  }
+}
 
-axios.get('http://localhost:8080/category')
-  .then(function (response) {
-
-    response.data.forEach(element => {
-      category_menu.innerHTML += `<li class="category"><a href="sousCategory.html?id=${element._id}">${element.nom}</a></li>`
-
-    });
-
-  }).catch(function (err) {
-    console.log(err);
-  });
-
-
-
-
-
-
-
+getCategory()
 
 
 
@@ -50,36 +64,37 @@ let buttonDOM = [];
 
 class UI {
   displayProducts(products) {
-    let results = "";
-    products.forEach(({
-      nom,
-      img,
-      ingrediens,
-      prix,
-      _id
-    }) => {
-      results += `<!-- Single Product -->
-      <div class="product">
-        <div class="image__container">
-          <img src="${img}" alt="" />
-        </div>
-        <div class="product__footer">
-          <h1>${nom}</h1>
-          <h2>${ingrediens}</h2>
-          
-          <div class="bottom">
-            <div class="btn__group">
-              <button class="btn addToCart" data-id= ${_id} >Add to Cart</button>
-              
-            </div>
-            <div class="price">${prix} DH</div>
+    var results = "";
+    
+    for(let i = 0; i < products.length; i++){
+      console.log(products[i]._id);
+      results = `
+      <div class="col-12 col-md-4 col-lg-4 col-xl-4 mb-2">
+      <div class="card" style="width: 100%">
+          <img src="http://localhost:3000/api/product/photo/${products[i]._id}" class="card-img-top" alt="...">
+      <div class="card-body">
+      <h5 class="card-title">${products[i].name}</h5>
+      <div class="row">
+          <div class="col-12 d-grid">
+              <a href="#" class="btn btn-primary">${products[i].price} DH</a>
           </div>
-        </div>
+        
       </div>
-      <!-- End of Single Product -->`;
-    });
-
-    productDOM.innerHTML = results;
+      <div class="col-12 my-3">
+          <div class="d-grid">
+                  <button type="submit" class="btn btn-dark mt-3 addToCart" data-id= ${products[i]._id}>
+                      <i class="fal fa-shopping-cart"></i>
+                      ADD TO CART</button>
+          </div>
+      </div>
+  </div>
+</div>
+</div>`;
+productDOM.innerHTML += results;
+    }
+  
+    
+   
   }
 
   getButtons() {
@@ -100,10 +115,7 @@ class UI {
         e.target.disabled = true;
 
         // Get product from products
-        const cartItem = {
-          ...Storage.getProduct(id),
-          amount: 1
-        };
+        const cartItem = { ...Storage.getProduct(id), amount: 1 };
 
         // Add product to cart
         cart = [...cart, cartItem];
@@ -122,47 +134,41 @@ class UI {
   setItemValues(cart) {
     let tempTotal = 0;
     let itemTotal = 0;
-    let pointTotal = 0
 
     cart.map(item => {
-      pointTotal += item.points * item.amount;
       tempTotal += item.prix * item.amount;
       itemTotal += item.amount;
     });
     cartTotal.innerText = parseFloat(tempTotal.toFixed(2));
     itemTotals.innerText = itemTotal;
-
-    // add total points to localStorage
-
-    localStorage.setItem("pointsTotals",pointTotal);
-
- 
   }
 
-  addCartItem({
-    prix,
-    nom,
-    _id
-  }) {
+  addCartItem({ price, name, _id }) {
     const div = document.createElement("div");
     div.classList.add("cart__item");
 
-    div.innerHTML = `<img src="https://cdn.pixabay.com/photo/2016/03/05/19/02/hamburger-1238246_960_720.jpg">
+    div.innerHTML = `<img src="https://cdn.pixabay.com/photo/2016/05/25/10/43/hamburger-1414422_960_720.jpg">
           <div>
-            <h3>${nom}</h3>
-            <h3 class="price">${prix} DH</h3>
+            <h3>${name}</h3>
+            <h3 class="price">${price}DH</h3>
           </div>
           <div>
             <span class="increase" data-id=${_id}>
-            <i class="fas fa-chevron-up"></i>
+              <svg>
+                <use xlink:href="./images/sprite.svg#icon-angle-up"></use>
+              </svg>
             </span>
             <p class="item__amount">1</p>
             <span class="decrease" data-id=${_id}>
-            <i class="fas fa-chevron-down"></i>
+              <svg>
+                <use xlink:href="images/sprite.svg#icon-angle-down"></use>
+              </svg>
             </span>
           </div>
             <span class="remove__item" data-id=${_id}>
-            <i class="fas fa-trash"></i>
+              <svg>
+                <use xlink:href="images/sprite.svg#icon-trash"></use>
+              </svg>
             </span>
         </div>`;
     cartContent.appendChild(div);
@@ -209,7 +215,7 @@ class UI {
         this.removeItem(id);
         cartContent.removeChild(target.parentElement);
       } else if (target.classList.contains("increase")) {
-        const id = target.dataset.id;
+        const id =target.dataset.id;
         let tempItem = cart.find(item => item._id === id);
         tempItem.amount++;
         Storage.saveCart(cart);
@@ -259,7 +265,7 @@ class UI {
 class Products {
   async getProducts() {
     try {
-      const result = await fetch(`http://localhost:8080/product/${idSousCtg}`);
+      const result = await fetch(`http://localhost:3000/api/product/${sousCtgId}`);
       const products = await result.json();
       return products;
     } catch (err) {
@@ -283,8 +289,9 @@ class Storage {
   }
 
   static getCart() {
-    return localStorage.getItem("cart") ?
-      JSON.parse(localStorage.getItem("cart")) : [];
+    return localStorage.getItem("cart")
+      ? JSON.parse(localStorage.getItem("cart"))
+      : [];
   }
 }
 
@@ -300,115 +307,90 @@ document.addEventListener("DOMContentLoaded", async () => {
   ui.getButtons();
   ui.cartLogic();
 
-  serviceTable =document.getElementById('serviceTable');
+// serviceTable =document.getElementById('serviceTable');
 
-  axios.get('http://localhost:8080/table')
-.then(function (response) {
+// axios.get('http://localhost:8080/table')
+// .then(function (response) {
 
-  // check if codepromo in db 
+// // check if codepromo in db 
 
-  for (let i = 0; i < response.data.length; i++) {
+// for (let i = 0; i < response.data.length; i++) {
 
-    if (response.data[i].isOcuped == false) {
+//   if (response.data[i].isOcuped == false) {
 
-      serviceTable.innerHTML+=`<option value="${response.data[i].numTable}">${response.data[i].numTable}</option>`
-      
-    }
+//     serviceTable.innerHTML+=`<option value="${response.data[i].numTable}">${response.data[i].numTable}</option>`
+    
+//   }
 
- 
+// }
+
+// }).catch(function (err) {
+// console.log(err);
+// });
+
+})
 
 
+// checkout = document.getElementById('checkout');
 
-  }
-
-
-
-
-
-}).catch(function (err) {
-  console.log(err);
-});
-
-});
+// checkout.addEventListener('click', () => {
 
 
 
+//   let table = document.getElementById('serviceTable').value;
+//   total = document.querySelector('.cart__total').innerText;
+//   var intTotal = parseInt(total);
+//   let codePromo = document.getElementById('codePromo').value;
 
 
-
-
-
-
-
-
-
-
-
-
-
-checkout = document.querySelector('.checkout');
-
-checkout.addEventListener('click', () => {
-
-
-
-  let table = document.getElementById('serviceTable').value;
-  total = document.querySelector('.cart__total').innerText;
-  var intTotal = parseInt(total);
-  let codePromo = document.getElementById('codePromo').value;
-
-
-  let pourcentage = 0;
+//   let pourcentage = 0;
 
 
   // code promo 
 
 
-  axios.get('http://localhost:8080/Codepromo')
-    .then(function (response) {
+//  axios.get('http://localhost:8080/Codepromo')
+//     .then(function (response) {
 
-      // check if codepromo in db 
+//       // check if codepromo in db 
 
-      for (let i = 0; i < response.data.length; i++) {
-
-
-        if (codePromo === response.data[i].code && response.data[i].isValid == true) {
-
-          pourcentage = response.data[i].pourcentage;
-          codePromoId = response.data[i]._id;
-          let tmp = (intTotal * pourcentage) / 100;
-          let totalAfterCode = intTotal - tmp;
-
-          total = document.querySelector('.cart__total').innerText = totalAfterCode
+//       for (let i = 0; i < response.data.length; i++) {
 
 
-          // set isvalid to false in db 
-          axios.put(`http://localhost:8080/Codepromo/update/${codePromoId}`)
-            .then(function (response) {
-              console.log('updated');
-            })
-            .catch(function (err) {
-              console.log(err);
-            });
+//         if (codePromo === response.data[i].code && response.data[i].isValid == true) {
+
+//           pourcentage = response.data[i].pourcentage;
+//           codePromoId = response.data[i]._id;
+//           let tmp = (intTotal * pourcentage) / 100;
+//           let totalAfterCode = intTotal - tmp;
+
+//           localStorage.setItem('total', totalAfterCode);
+
+//           total = document.querySelector('.cart__total').innerHTML = totalAfterCode
 
 
-        } else {
-          setTimeout(() => {console.log('code invalid or expaired ...!')},300)
-
-          
-
-        }
-
-
-      }
-
+//           // set isvalid to false in db 
+//           axios.put(`http://localhost:8080/Codepromo/update/${codePromoId}`)
+//             .then(function (response) {
+//               console.log('updated');
+//             })
+//             .catch(function (err) {
+//               console.log(err);
+//             });
 
 
+//         } else {
+//           setTimeout(() => {console.log('code invalid or expaired ...!')},300)
+ 
+//         }
 
 
-    }).catch(function (err) {
-      console.log(err);
-    });
+//       }
+
+
+//     }).catch(function (err) {
+//       console.log(err);
+//     });
 
 
 
@@ -419,26 +401,20 @@ checkout.addEventListener('click', () => {
 // set ocuped to ture after checkout 
 
 
-axios.put(`http://localhost:8080/table/update/${table}`)
-            .then(function (response) {
-              console.log('updated');
-            })
-            .catch(function (err) {
-              console.log(err);
-            });
+// axios.put(`http://localhost:8080/table/update/${table}`)
+//             .then(function (response) {
+//               console.log('updated');
+//             })
+//             .catch(function (err) {
+//               console.log(err);
+//             });
 
 
-  localStorage.setItem('table', table);
-  localStorage.setItem('total', total);
+//   localStorage.setItem('total', total);
+//   setTimeout(() => {
+//     window.location.href = "payment.html";
+//   },1000)
 
-  setTimeout(() => {
-    window.location.href = "payment.html";
-  },1000)
+//   let xcart = Storage.getCart();
 
- 
-
-
-  let xcart = Storage.getCart();
-
-
-})
+// })

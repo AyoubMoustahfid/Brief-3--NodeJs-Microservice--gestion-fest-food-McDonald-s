@@ -24,7 +24,7 @@ async function getProductBySCId() {
                 </div>
                 <div class="col-12 my-3">
                     <div class="d-grid">
-                        <a type="submit" class="btn btn-dark mt-3" id="submit" href="cart.html?id=${response.data[i]._id}"><i class="fal fa-shopping-cart"></i>ADD TO CART</a>
+                        <a type="submit" class="btn btn-dark mt-3 addToCart " id="submit" href=""><i class="fal fa-shopping-cart"></i>ADD TO CART</a>
                     </div>
                 </div>
             </div>
@@ -86,25 +86,7 @@ async function getProductToCart() {
             `
             document.getElementById("tbody").innerHTML += row;
 
-            const point = 10;
-            const dirhame = 2;
-
-
-            var input2 = parseInt(price.innerText)
-
-            if(input2 > 7 && input2 < 20){
-              console.log(((5 * dirhame) / point) - (response.data[i].price * response.data[i].quantity) + " " + "DH");
-              var html = ((5 * dirhame) / point) - total + " " + "DH" 
-              total.innerHTML = html
-            }else if(input2 > 21 && input2 < 47){
-                console.log(((12 * dirhame) / point) - total + " " + "DH");
-                var html = ((5 * dirhame) / point) - total + " " + "DH";
-                total.innerHTML = html
-            }else{
-                console.log(((20 * dirhame) / point) - total + " " + "DH");
-                var html = ((20 * dirhame) / point) - total + " " + "DH";
-                total.innerHTML = html
-            }
+           
         }
 
     } catch (error) {
