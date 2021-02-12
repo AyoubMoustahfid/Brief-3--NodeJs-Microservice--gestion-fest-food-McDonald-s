@@ -23,12 +23,12 @@
 
 html {
   box-sizing: border-box;
-  font-size: 62.5%;
+
 }
 
 body {
   font-family: "Dosis", sans-serif;
-  font-size: 1.6rem;
+  font-size: 1rem;
   font-weight: 400;
   color: var(--black);
   background-color: var(--white);
@@ -133,17 +133,17 @@ li {
 
 .cart__icon span {
   position: absolute;
-  top: -1rem;
-  right: -2.5rem;
-  width: 2.5rem;
-  height: 2.5rem;
+  top: -6px;
+  right: 0;
+  width: 1.5rem;
+  height: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: var(--warn);
   color: var(--white);
   padding: 0.5rem;
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 700;
   border-radius: 50%;
 }
@@ -196,16 +196,6 @@ li {
   padding: 0 2rem;
 }
 
-.btn {
-  display: inline-block;
-  border: 1px solid var(--grey);
-  padding: 1rem 1.8rem;
-  color: var(--black);
-  font-weight: 500;
-  font-size: 1.7rem;
-  cursor: pointer;
-  transition: all 300ms ease-in-out;
-}
 
 .btn:hover {
   background-color: var(--orange);
@@ -239,7 +229,7 @@ li {
   width: 60%;
   height: 80%;
   padding: 1.6rem;
-  border-radius: 2rem;
+  border-radius: 0.4rem;
   z-index: 3;
   overflow-y: scroll;
   background-color: var(--grey2);
@@ -287,27 +277,16 @@ li {
   fill: var(--orange);
 }
 
-.cart__item {
-  display: grid;
-  align-items: center;
-  grid-template-columns: 1fr 2fr 1fr 1fr;
-  width: 70%;
-  margin: 2rem auto;
-}
 
-.cart__item div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+
 
 .cart__item div span {
   cursor: pointer;
 }
 
 .cart__item img {
-  width: 9.5rem;
-  height: 9.5rem;
+  height: 100%;
+  
 }
 
 .cart__item h3 {
@@ -369,14 +348,7 @@ li {
   letter-spacing: 1px;
 }
 
-.cart__footer .btn {
-  display: inline-block;
-  padding: 1.5rem 3rem;
-  font-size: 2rem;
-  background-color: var(--orange);
-  border: none;
-  margin-top: 2rem;
-}
+
 
 .cart__footer .btn:focus {
   outline: none;

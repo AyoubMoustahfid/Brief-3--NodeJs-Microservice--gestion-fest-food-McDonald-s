@@ -147,30 +147,49 @@ productDOM.innerHTML += results;
     const div = document.createElement("div");
     div.classList.add("cart__item");
 
-    div.innerHTML = `<img src="https://cdn.pixabay.com/photo/2016/05/25/10/43/hamburger-1414422_960_720.jpg">
-          <div>
-            <h3>${name}</h3>
-            <h3 class="price">${price}DH</h3>
+    div.innerHTML = `
+        <div class="card my-3" >
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="http://localhost:3000/api/product/photo/${_id}" alt="...">
+            </div>
+          <div class="col-md-8">
+            <div class="card-body" style="height: 100%">
+            <div class="row align-items-center" style="height: 100%">
+              <div class="col-6">
+                <h5 class="card-title">${name}</h5>
+              </div>
+
+            <div class="col-6">
+            <div class="card-text">
+            <div class="row">
+               <div class="col-4">${price}DH</div>
+               <div class="col-2 increase d-flex justify-content-center" data-id=${_id}>
+               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+               <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+             </svg>
+               </div>
+               <div class="col-3 d-flex justify-content-center">1</div>
+               <div class="col-2 decrease d-flex justify-content-center" data-id=${_id}>
+               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+</svg>
+               </div>
+            </div>
           </div>
-          <div>
-            <span class="increase" data-id=${_id}>
-              <svg>
-                <use xlink:href="./images/sprite.svg#icon-angle-up"></use>
-              </svg>
-            </span>
-            <p class="item__amount">1</p>
-            <span class="decrease" data-id=${_id}>
-              <svg>
-                <use xlink:href="images/sprite.svg#icon-angle-down"></use>
-              </svg>
-            </span>
+          
           </div>
-            <span class="remove__item" data-id=${_id}>
-              <svg>
-                <use xlink:href="images/sprite.svg#icon-trash"></use>
-              </svg>
-            </span>
-        </div>`;
+            </div>
+             
+            
+              <div class="card-text remove__item" data-id=${_id}>
+              <i class="bi bi-archive-fill"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+       </div>
+     `;
     cartContent.appendChild(div);
   }
 
@@ -307,90 +326,92 @@ document.addEventListener("DOMContentLoaded", async () => {
   ui.getButtons();
   ui.cartLogic();
 
-// serviceTable =document.getElementById('serviceTable');
 
-// axios.get('http://localhost:8080/table')
-// .then(function (response) {
 
-// // check if codepromo in db 
+const serviceTable =document.getElementById('serviceTable');
 
-// for (let i = 0; i < response.data.length; i++) {
+axios.get('http://localhost:3000/api/table')
+.then(function (response) {
 
-//   if (response.data[i].isOcuped == false) {
-
-//     serviceTable.innerHTML+=`<option value="${response.data[i].numTable}">${response.data[i].numTable}</option>`
+var html = ""
+for (let i = 0; i < response.data.tables.length; i++) {
+   // check if code Promo excist in data base or not 
+  if (response.data.tables[i].isDisponible == false) {
+      
+     html = `
+     <option value="${response.data.tables[i].name}">${response.data.tables[i].name}</option>
+     `
+     serviceTable.innerHTML += html
     
-//   }
+  }
 
-// }
+}
 
-// }).catch(function (err) {
-// console.log(err);
-// });
+}).catch(function (err) {
+console.log(err);
+});
 
 })
 
 
-// checkout = document.getElementById('checkout');
+checkout = document.getElementById('checkout');
 
-// checkout.addEventListener('click', () => {
+checkout.addEventListener('click', () => {
 
-
-
-//   let table = document.getElementById('serviceTable').value;
-//   total = document.querySelector('.cart__total').innerText;
-//   var intTotal = parseInt(total);
-//   let codePromo = document.getElementById('codePromo').value;
+  let table = document.getElementById('serviceTable').value;
+  total = document.querySelector('.cart__total').innerText;
+  var intTotal = parseInt(total);
+  let codePromo = document.getElementById('codePromo').value;
 
 
-//   let pourcentage = 0;
+  let pourcentage = 0;
 
 
-  // code promo 
 
 
-//  axios.get('http://localhost:8080/Codepromo')
-//     .then(function (response) {
 
-//       // check if codepromo in db 
+ axios.get('http://localhost:3000/api/codePromo')
+    .then(function (response) {
 
-//       for (let i = 0; i < response.data.length; i++) {
+      // check if codepromo in db 
 
-
-//         if (codePromo === response.data[i].code && response.data[i].isValid == true) {
-
-//           pourcentage = response.data[i].pourcentage;
-//           codePromoId = response.data[i]._id;
-//           let tmp = (intTotal * pourcentage) / 100;
-//           let totalAfterCode = intTotal - tmp;
-
-//           localStorage.setItem('total', totalAfterCode);
-
-//           total = document.querySelector('.cart__total').innerHTML = totalAfterCode
+      for (let i = 0; i < response.data.codePromos.length; i++) {
 
 
-//           // set isvalid to false in db 
-//           axios.put(`http://localhost:8080/Codepromo/update/${codePromoId}`)
-//             .then(function (response) {
-//               console.log('updated');
-//             })
-//             .catch(function (err) {
-//               console.log(err);
-//             });
+        if (codePromo === response.data.codePromos[i].code && response.data.codePromos[i].isValid == true) {
+
+          pourcentage = response.data[i].gagner;
+          codePromoId = response.data[i]._id;
+          let tmp = (intTotal * pourcentage) / 100;
+          let totalAfterCode = intTotal - tmp;
+
+          localStorage.setItem('total', totalAfterCode);
+
+          total = document.querySelector('.cart__total').innerHTML = totalAfterCode
 
 
-//         } else {
-//           setTimeout(() => {console.log('code invalid or expaired ...!')},300)
+          // set isvalid to false in db 
+          axios.put(`http://localhost:3000/api/codePromo/${codePromoId}`)
+            .then(function (response) {
+              console.log('updated');
+            })
+            .catch(function (err) {
+              console.log(err);
+            });
+
+
+        } else {
+          setTimeout(() => {console.log('code invalid or expaired ...!')},300)
  
-//         }
+        }
 
 
-//       }
+      }
 
 
-//     }).catch(function (err) {
-//       console.log(err);
-//     });
+    }).catch(function (err) {
+      console.log(err);
+    });
 
 
 
@@ -398,23 +419,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
-// set ocuped to ture after checkout 
+
+axios.put(`http://localhost:3000/api/table/${table}`)
+            .then(function (response) {
+              console.log('updated');
+            })
+            .catch(function (err) {
+              console.log(err);
+            });
 
 
-// axios.put(`http://localhost:8080/table/update/${table}`)
-//             .then(function (response) {
-//               console.log('updated');
-//             })
-//             .catch(function (err) {
-//               console.log(err);
-//             });
+  localStorage.setItem('total', total);
+  
 
+  let xcart = Storage.getCart();
 
-//   localStorage.setItem('total', total);
-//   setTimeout(() => {
-//     window.location.href = "payment.html";
-//   },1000)
-
-//   let xcart = Storage.getCart();
-
-// })
+})
