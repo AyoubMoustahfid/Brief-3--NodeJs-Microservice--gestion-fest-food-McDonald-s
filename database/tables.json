@@ -1,0 +1,131 @@
+[{
+  "_id": {
+    "$oid": "602655efcf56b97320f05859"
+  },
+  "isDisponible": false,
+  "name": "table 1",
+  "createdAt": {
+    "$date": "2021-02-12T10:18:23.167Z"
+  },
+  "updatedAt": {
+    "$date": "2021-02-12T10:18:23.167Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "602655fecf56b97320f0585a"
+  },
+  "isDisponible": false,
+  "name": "table 2",
+  "createdAt": {
+    "$date": "2021-02-12T10:18:38.570Z"
+  },
+  "updatedAt": {
+    "$date": "2021-02-12T10:18:38.570Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60265603cf56b97320f0585b"
+  },
+  "isDisponible": true,
+  "name": "table 3",
+  "createdAt": {
+    "$date": "2021-02-12T10:18:43.783Z"
+  },
+  "updatedAt": {
+    "$date": "2021-02-12T10:18:43.783Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60265607cf56b97320f0585c"
+  },
+  "isDisponible": false,
+  "name": "table 4",
+  "createdAt": {
+    "$date": "2021-02-12T10:18:47.321Z"
+  },
+  "updatedAt": {
+    "$date": "2021-02-12T10:18:47.321Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6026560acf56b97320f0585d"
+  },
+  "isDisponible": false,
+  "name": "table 5",
+  "createdAt": {
+    "$date": "2021-02-12T10:18:50.672Z"
+  },
+  "updatedAt": {
+    "$date": "2021-02-12T10:18:50.672Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6026560dcf56b97320f0585e"
+  },
+  "isDisponible": false,
+  "name": "table 6",
+  "createdAt": {
+    "$date": "2021-02-12T10:18:53.427Z"
+  },
+  "updatedAt": {
+    "$date": "2021-02-12T10:18:53.427Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60265610cf56b97320f0585f"
+  },
+  "isDisponible": false,
+  "name": "table 7",
+  "createdAt": {
+    "$date": "2021-02-12T10:18:56.233Z"
+  },
+  "updatedAt": {
+    "$date": "2021-02-12T10:18:56.233Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60265614cf56b97320f05860"
+  },
+  "isDisponible": false,
+  "name": "table 8",
+  "createdAt": {
+    "$date": "2021-02-12T10:19:00.218Z"
+  },
+  "updatedAt": {
+    "$date": "2021-02-12T10:19:00.218Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60265616cf56b97320f05861"
+  },
+  "isDisponible": false,
+  "name": "table 9",
+  "createdAt": {
+    "$date": "2021-02-12T10:19:02.957Z"
+  },
+  "updatedAt": {
+    "$date": "2021-02-12T10:19:02.957Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60265619cf56b97320f05862"
+  },
+  "isDisponible": false,
+  "name": "table 10",
+  "createdAt": {
+    "$date": "2021-02-12T10:19:05.622Z"
+  },
+  "updatedAt": {
+    "$date": "2021-02-12T10:19:05.622Z"
+  },
+  "__v": 0
+}]
